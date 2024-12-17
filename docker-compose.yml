@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  springboot-app:
+    container_name: sgai-multiversa-conatainer
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/sgai?useSSL=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=12022006
+    depends_on:
+      - mysql-db
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: 12022006
+      MYSQL_DATABASE: sgai
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 12022006
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
